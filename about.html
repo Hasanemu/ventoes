@@ -31,6 +31,10 @@
             padding: 2rem;
             box-sizing: border-box;
             position: relative;
+            
+            /* -- START: Changes to fix scrolling -- */
+            overflow: hidden;
+            /* -- END: Changes to fix scrolling -- */
         }
 
         /* Background gradient for a soft, visual layer */
@@ -45,8 +49,6 @@
             z-index: -1;
         }
 
-        /* Header & Logo (removed for this version) */
-        
         /* Main Content Wrapper */
         .main-content {
             flex-grow: 1;
@@ -59,7 +61,7 @@
             text-align: center;
             padding-bottom: 50px;
         }
-        
+
         /* About Page specific styles */
         .about-section {
             max-width: 600px;
@@ -149,7 +151,7 @@
     <main class="main-content">
         <section class="about-section">
             <h1 class="main-title">About</h1>
-            <p class="about-paragraph">hi, I created this site to help others because no one else did it for me. I had alot of stuff happen to me, but guess what, I didn't have anyone to share it with. That is why I created ventoes. Everything you share or vent about will be anonymous forever. Only the people who signup as listeners will be able to see it, and respond to it. I know life's tough right now, but it's okay, it happens :) 
+            <p class="about-paragraph"hi, I created this site to help others because no one else did it for me. I had alot of stuff happen to me, but guess what, I didn't have anyone to share it with. That is why I created ventoes. Everything you share or vent about will be anonymous forever. Only the people who signup as listeners will be able to see it, and respond to it. I know life's tough right now, but it's okay, it happens :) 
             - @hasanemu on Instagram</p>
         </section>
     </main>
@@ -158,12 +160,8 @@
     <div class="decorative-fire"></div>
 
     <footer class="footer">
-        <a href="index" class="footer-link">Home</a>
+        <a href="index.html" class="footer-link">Home</a>
     </footer>
 
 </body>
-
 </html>
-
-
-
