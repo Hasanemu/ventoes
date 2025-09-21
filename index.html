@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ventoes</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #f7f2e9; /* A warm, creamy background */
+            --main-color: #ffffff;
+            --text-color: #3f3934; /* Soft dark brown for warmth */
+            --primary-accent: #9b72aa; /* Soft purple */
+            --secondary-accent: #d45a25; /* Updated red color */
+            --border-color: #e8e2d7; /* Lighter border color */
+            --font-primary: 'Poppins', sans-serif;
+            --font-secondary: 'Playfair Display', serif;
+        }
+
+        /* Base Styles */
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-primary);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 2rem;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        /* Background gradient for a soft, visual layer */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at top, var(--bg-color) 0%, transparent 60%);
+            z-index: -1;
+        }
+
+        /* Header & Logo */
+        .header {
+            width: 100%;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            font-family: var(--font-secondary);
+            letter-spacing: 0.05rem;
+            color: var(--text-color);
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Main Content Wrapper */
+        .main-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        /* Titles and Subtitles */
+        .intro-section {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        .main-title {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 700;
+            line-height: 1.2;
+            margin: 0 0 0.5rem;
+            font-family: var(--font-secondary);
+        }
+        .subtitle-container {
+            background-color: var(--text-color);
+            border-radius: 100px;
+            padding: 0.5rem 1.5rem;
+            display: inline-block;
+            margin-top: 1rem;
+        }
+        .subtitle {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            color: var(--main-color);
+            margin: 0;
+        }
+
+        /* Vertical layout for cards and separator */
+        .feature-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3rem;
+            width: 100%;
+        }
+
+        .divider-text {
+            font-family: var(--font-secondary);
+            font-size: 1.8rem;
+            color: var(--text-color);
+            text-align: center;
+        }
+
+        /* Feature Cards (3D Effect) */
+        .feature-card {
+            background-color: var(--main-color);
+            border-radius: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            padding: 2rem;
+            width: 100%;
+            position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            will-change: transform, box-shadow;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .feature-card.vent-card {
+            padding: 2.5rem; /* Increased padding for a larger size */
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        /* 3D Border Effect */
+        .feature-card::after {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            border: 2px solid var(--border-color);
+            border-radius: 20px;
+            z-index: 0;
+            pointer-events: none;
+            transition: transform 0.3s ease;
+        }
+        .feature-card:hover::after {
+            transform: translate(5px, 5px);
+        }
+
+        /* Card Header */
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0;
+            color: var(--text-color);
+        }
+        .decoration-circle {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-left: 10px;
+        }
+        .vent-card .decoration-circle { background-color: var(--primary-accent); }
+        .listen-card .decoration-circle { background-color: var(--secondary-accent); }
+
+        /* Listen Card Note */
+        .note {
+            font-size: 0.9rem;
+            line-height: 1.4;
+            color: var(--text-color); /* Updated text color to match main text */
+            margin-top: 0;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        /* Form Styles */
+        .form-style {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        .input-field {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-primary);
+            font-size: 0.9rem;
+            box-sizing: border-box;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+        .textarea-field {
+            height: 150px;
+            resize: none;
+            margin-bottom: 2rem;
+        }
+        .input-field:focus {
+            outline: none;
+            border-color: var(--primary-accent);
+            box-shadow: 0 0 0 3px rgba(155, 114, 170, 0.2);
+        }
+
+        /* Action Buttons */
+        .action-button {
+            width: 100%;
+            border: none;
+            border-radius: 15px;
+            padding: 1rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 0.05rem;
+            margin-top: auto; /* Pushes button to the bottom of the card */
+        }
+        .primary-button {
+            background-color: var(--primary-accent);
+            color: var(--main-color);
+        }
+        .primary-button:hover {
+            background-color: #a980bb;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        }
+        .secondary-button {
+            background-color: var(--secondary-accent);
+            color: var(--main-color);
+        }
+        .secondary-button:hover {
+            background-color: #d45a25; /* Same as the button's primary color */
+            transform: translateY(-3px);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Feedback Messages */
+        .hidden {
+            display: none;
+        }
+        .feedback-message {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: var(--primary-accent);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            text-align: center;
+        }
+        .feedback-message.show {
+            opacity: 1;
+        }
+
+        /* New Decorative Elements (Moving Emojis) */
+        .decorative-hugging, .decorative-fire {
+            position: fixed;
+            z-index: -1;
+            font-size: clamp(8rem, 15vw, 15rem);
+            opacity: 0.3;
+            animation: float-emoji 10s infinite ease-in-out alternate;
+        }
+
+        .decorative-hugging {
+            content: "🫂";
+            top: 10%;
+            right: -10%;
+        }
+        .decorative-fire {
+            content: "🔥";
+            bottom: 5%;
+            left: -10%;
+        }
+
+        @keyframes float-emoji {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(20px, 10px) rotate(5deg); }
+            100% { transform: translate(0, 0) rotate(0deg); }
+        }
+
+        /* Footer */
+        .footer {
+            padding: 1.5rem;
+            text-align: center;
+            font-size: 0.8rem;
+        }
+        .footer-link {
+            color: var(--secondary-accent);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .footer-link:hover {
+            color: var(--primary-accent);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .main-content {
+                max-width: 100%;
+                padding: 0 1rem;
+            }
+            .intro-section {
+                margin-bottom: 2rem;
+            }
+            .decorative-hugging, .decorative-fire {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="logo">ventoes.</div>
+    </header>
+
+    <main class="main-content">
+        <section class="intro-section">
+            <h1 class="main-title">A beautiful space for your thoughts.</h1>
+            <div class="subtitle-container">
+                <p class="subtitle">A place to let go and to listen.</p>
+            </div>
+        </section>
+
+        <section class="feature-container">
+            <div class="feature-card vent-card">
+                <div class="card-header">
+                    <h2 class="card-title">VENT.</h2>
+                    <div class="decoration-circle"></div>
+                </div>
+                <form id="vent-form" class="form-style">
+                    <textarea id="vent-text" class="input-field textarea-field" placeholder="the floor is yours :)"></textarea>
+                    <input type="email" id="venter-email" class="input-field" placeholder="your email (so that we can contact you)">
+                    <button type="submit" class="action-button primary-button">release.</button>
+                </form>
+                <p id="vent-message" class="hidden feedback-message">Your words now have wings. 🕊️</p>
+            </div>
+
+            <div class="divider-text">or</div>
+
+            <div class="feature-card listen-card">
+                <div class="card-header">
+                    <h2 class="card-title">LISTEN.</h2>
+                    <div class="decoration-circle"></div>
+                </div>
+                <p class="note">You'll receive email notifications when someone vents. You can choose whether or not you'd like to respond.</p>
+                <form id="listener-form" class="form-style">
+                    <input type="text" id="listener-name" class="input-field" placeholder="your name">
+                    <input type="email" id="listener-email" class="input-field" placeholder="your email" required>
+                    <button type="submit" class="action-button secondary-button">join the quiet.</button>
+                </form>
+                <p id="listener-message" class="hidden feedback-message">Welcome, gentle listener. 💖</p>
+            </div>
+        </section>
+    </main>
+    
+    <div class="decorative-hugging"></div>
+    <div class="decorative-fire"></div>
+
+    <footer class="footer">
+        <a href="about.html" class="footer-link">About</a>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const ventForm = document.getElementById('vent-form');
+            const listenerForm = document.getElementById('listener-form');
+            const ventMessage = document.getElementById('vent-message');
+            const listenerMessage = document.getElementById('listener-message');
+
+            ventForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                // Simulate form submission
+                ventMessage.classList.add('show');
+                setTimeout(() => {
+                    ventMessage.classList.remove('show');
+                    ventForm.reset();
+                }, 3000); // Hide message and reset form after 3 seconds
+            });
+
+            listenerForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                // Simulate form submission
+                listenerMessage.classList.add('show');
+                setTimeout(() => {
+                    listenerMessage.classList.remove('show');
+                    listenerForm.reset();
+                }, 3000); // Hide message and reset form after 3 seconds
+            });
+        });
+    </script>
+</body>
+</html>
